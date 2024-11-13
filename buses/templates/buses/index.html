@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Today - Available Buses</title>
+</head>
+<body>
+
+    <header>
+        <h1>Book Your Bus Today</h1>
+        {% if user.is_authenticated %}
+            <p>Welcome, {{ user.username }}! <a href="{% url 'logout' %}">Logout</a></p>
+        {% endif %}
+    </header>
+
+    <div>
+        {% if user.is_authenticated %}
+            <h2>Available Buses Today</h2>
+            <ol>
+                {% for safari in safaris %}
+                    <li>
+                        <a href="{% url 'info' pk=safari.id %}">From {{ safari.origin }} to {{ safari.destination }} - {{ safari.duration }}</a>
+                    </li>
+                {% empty %}
+                    <h3>No available buses today. Please check back later.</h3>
+                {% endfor %}
+            </ol>
+        {% else %}
+            <h2>You need to log in to view the available buses.</h2>
+            <div>
+                <a href="{% url 'login' %}">Login</a> | 
+                <a href="{% url 'signup' %}">Sign Up</a>
+            </div>
+        {% endif %}
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Bus Booking System</p>
+    </footer>
+
+</body>
+</html>

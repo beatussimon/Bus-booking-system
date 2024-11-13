@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book</title>
+</head>
+<body>
+    <h1>Booking for {{ safari.origin }} to {{ safari.destination }} - {{ safari.duration }} hours</h1>
+
+    <form action="{% url 'book' pk=safari.pk %}" method="post">
+        {% csrf_token %}
+        <label>Select a passenger:</label>
+        <select name="passenger_id">
+            {% for passenger in passengers %}
+                <option value="{{ passenger.id }}">{{ passenger.first_name }} {{ passenger.last_name }}</option>
+            {% empty %}
+                <option disabled>No passengers available</option>
+            {% endfor %}
+        </select>
+        <input type="submit" value="Submit">
+    </form>
+
+    <h2>Current Passengers:</h2>
+    {% if current_passengers %}
+        <ul>
+            {% for passenger in current_passengers %}
+                <li>{{ passenger.first_name }} {{ passenger.last_name }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No passengers have booked yet.</p>
+    {% endif %}
+
+    <h3>Available Seats: {{ available_seats }}</h3>
+    {% if available_seats == 0 %}
+        <p>The bus is fully booked!</p>
+    {% endif %}
+</body>
+</html>

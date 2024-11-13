@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Today</title>
+</head>
+<body>
+    <h1>Safari Information:</h1>
+    <ol>
+        <h2>
+            <li>Origin: {{safari.origin}}</li>
+            <li>Destination: {{safari.destination}}</li>
+            <li>Duration: {{safari.duration}} Hours</li>
+        </h2>
+        <a href="{% url 'book' pk=safari.id %}">Book this flight</a> <br>
+        <a href="{% url 'index' %}">Back to the Safaris</a>
+    </ol>
+</body>
+</html>
